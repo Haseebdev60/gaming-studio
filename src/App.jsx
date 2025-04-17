@@ -13,6 +13,17 @@ import Careers from './pages/Careers';
 import Blog from './pages/Blog';
 import GameDetails from './pages/GameDetails';
 
+// Define a simple NotFound component
+const NotFound = () => (
+  <div style={{ textAlign: 'center', padding: '50px 20px' }}>
+    <h1>404 - Page Not Found</h1>
+    <p>The page you are looking for does not exist.</p>
+    <a href="/" style={{ color: 'var(--secondary)', textDecoration: 'underline' }}>
+      Return to Home
+    </a>
+  </div>
+);
+
 function App() {
   return (
     <Router>
@@ -26,6 +37,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </PageLayout>
     </Router>

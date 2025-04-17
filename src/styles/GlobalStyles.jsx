@@ -16,6 +16,8 @@ const GlobalStyles = createGlobalStyle`
     --glow-accent: 0 0 10px rgba(255, 56, 100, 0.7);
     --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Exo', sans-serif;
+    --container-width: 100%;
+    --container-padding: 1rem;
   }
 
   * {
@@ -33,6 +35,8 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: var(--primary) var(--surface);
+    width: 100%;
+    max-width: 100%;
   }
 
   body::-webkit-scrollbar {

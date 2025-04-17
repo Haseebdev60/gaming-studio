@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Card = styled(motion.div)`
   position: relative;
@@ -106,6 +107,7 @@ const PlatformTags = styled.div`
   margin-bottom: 1rem;
   opacity: 0;
   transition: opacity 0.3s ease;
+  flex-wrap: wrap;
   
   &.platform-tags {
     opacity: 0;
@@ -195,14 +197,16 @@ const StatusBadge = styled.div`
   }}
 `;
 
-const GameCard = ({ 
-  image, 
-  title, 
-  description, 
-  platforms = [], 
-  status, 
-  onClick 
-}) => {
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+`;
+
+const GameCard = ({ game }) => {
+  const { id, title, description, image, platforms = [], status } = game;
+  
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -216,30 +220,31 @@ const GameCard = ({
   };
   
   return (
-    <Card 
-      onClick={onClick}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-    >
-      <CardImage src={image} alt={title} />
-      
-      {status && <StatusBadge status={status}>{status}</StatusBadge>}
-      
-      <OverlayButton className="overlay-button" />
-      
-      <CardContent className="content">
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+    <StyledLink to={`/games/${id}`}>
+      <Card 
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        <CardImage src={image} alt={title} />
         
-        <PlatformTags className="platform-tags">
-          {platforms.map(platform => (
-            <PlatformTag key={platform}>{platform}</PlatformTag>
-          ))}
-        </PlatformTags>
-      </CardContent>
-    </Card>
+        {status && <StatusBadge status={status}>{status}</StatusBadge>}
+        
+        <OverlayButton className="overlay-button" />
+        
+        <CardContent className="content">
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+          
+          <PlatformTags className="platform-tags">
+            {platforms.map((platform, index) => (
+              <PlatformTag key={index}>{platform}</PlatformTag>
+            ))}
+          </PlatformTags>
+        </CardContent>
+      </Card>
+    </StyledLink>
   );
 };
 
